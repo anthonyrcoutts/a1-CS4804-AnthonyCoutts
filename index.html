@@ -1,13 +1,93 @@
 <!DOCTYPE html>
-<div id="container"></div>
-<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-<script type="module">
+<html>
 
-<script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
-</script>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+
+<body>
+
+  <div id="graph"></div>
+
+  <script>
+    console.log(d3); // test if d3 is loaded
+
+    const width = 800;
+    const height = 400;
+
+    const svg = d3.select("#graph")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    // --- Background ---
+    svg.append('rect')
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('width', width)
+      .attr('height', height)
+      .attr('fill', 'skyblue');
+
+    // --- Mountain ---
+    const mountainPoints = [
+      [0, 250],
+      [150, 100],
+      [300, 250],
+      [450, 120],
+      [600, 250],
+      [width, 150],
+      [width, height],
+      [0, height]
+    ];
+
+    svg.append('polygon')
+      .attr('points', mountainPoints.map(d => d.join(",")).join(" "))
+      .attr('fill', 'grey')
+      .attr('stroke', 'black');
+
+    // --- Car Body ---
+    svg.append('rect')
+      .attr('x', 250)
+      .attr('y', 250)
+      .attr('width', 200)
+      .attr('height', 50)
+      .attr('fill', 'red')
+      .attr('stroke', 'black');
+
+    svg.append('rect')
+      .attr('x', 300)
+      .attr('y', 220)
+      .attr('width', 100)
+      .attr('height', 40)
+      .attr('fill', 'darkred')
+      .attr('stroke', 'black');
+
+    // --- Wheels ---
+    svg.append('circle')
+      .attr('cx', 280)
+      .attr('cy', 310)
+      .attr('r', 20)
+      .attr('fill', 'black');
+
+    svg.append('circle')
+      .attr('cx', 420)
+      .attr('cy', 310)
+      .attr('r', 20)
+      .attr('fill', 'black');
+
+    // --- Optional: car window/roof line ---
+    svg.append('line')
+      .attr('x1', 300)
+      .attr('y1', 220)
+      .attr('x2', 400)
+      .attr('y2', 220)
+      .attr('stroke', 'lightblue')
+      .attr('stroke-width', 3);
+  </script>
+
+
+
+
+</body>
+
+</html>
