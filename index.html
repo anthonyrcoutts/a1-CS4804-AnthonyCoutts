@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <div id="container"></div>
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-<script type="module">
+<script type="module"></script>
 
 <script>
   console.log(d3); // test if d3 is loaded
+
+  const margin = {top: 70, right: 30, bottom: 40, left: 80}
+  const width = 1200 - margin.left - margin.right
+  const height = 500 - margin.top - margin.bottom
+
+
   // Add an SVG
+
+  const svg = d3.select("svg")
+  .append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("hieght", height + margin.top + margin.bottom)
+
   // Add Rectangles
+  svg.append("rectangle")
+  .attr('x', 20)
+  .attr('y', 50)
+  .attr('width', width)
+  .attr('height', height)
+  .attr('stroke', 'black')
+  .attr('fill', 'yellow')
+
   // Add Circles
   // Add Lines
   // Add Polygons
 </script>
 
-<h4>Hello!</h4>
+<div id = "rectangle">
+
+</div>
