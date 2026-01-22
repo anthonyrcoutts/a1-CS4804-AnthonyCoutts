@@ -1,37 +1,240 @@
 <!DOCTYPE html>
-<div id="container"></div>
-<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-<script type="module"></script>
+<html>
 
-<script>
-  console.log(d3); // test if d3 is loaded
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
 
-  const margin = {top: 70, right: 30, bottom: 40, left: 80}
-  const width = 1200 - margin.left - margin.right
-  const height = 500 - margin.top - margin.bottom
+<body>
+  <h1 align="center">Roadtrip</h1>
+  <div id="graph" align="center"></div>
+
+  <script>
+    console.log(d3); // test if d3 is loaded
+
+    const width = 800;
+    const height = 400;
+
+    const svg = d3.select("#graph")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    // --- Sky ---
+    const sky = svg.append('rect')
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('width', width)
+      .attr('height', height)
+      .attr('fill', 'skyblue');
+
+    function animateSky() {
+      // reset instantly (no animation)
+      sky.interrupt().attr('fill', 'skyblue');
+
+      sky
+        .transition()
+        .duration(22000)
+        .ease(d3.easeCubicInOut)
+        .attr("fill", "#2D3C59")
+        .on("end", animateSky); // loop
+    }
+
+    animateSky();
 
 
-  // Add an SVG
+    // --- Mountain ---
+    const mountainPoints = [
+      [0, 250],
+      [150, 100],
+      [300, 250],
+      [450, 120],
+      [600, 250],
+      [width, 150],
+      [width, height],
+      [0, height]
+    ];
 
-  const svg = d3.select("svg")
-  .append("svg")
-  .attr("width", width + margin.left + margin.right)
-  .attr("hieght", height + margin.top + margin.bottom)
+    svg.append('polygon')
+      .attr('points', mountainPoints.map(d => d.join(",")).join(" "))
+      .attr('fill', 'darkgrey')
+      .attr('stroke', 'black');
 
-  // Add Rectangles
-  svg.append("rectangle")
-  .attr('x', 20)
-  .attr('y', 50)
-  .attr('width', width)
-  .attr('height', height)
-  .attr('stroke', 'black')
-  .attr('fill', 'yellow')
+    // --- Road ---
+    svg.append('rect')
+      .attr('x', 0)
+      .attr('y', 280)
+      .attr('width', 800)
+      .attr('height', 120)
+      .attr('fill', 'grey')
+      .attr('stroke', 'black');
 
-  // Add Circles
-  // Add Lines
-  // Add Polygons
-</script>
+    svg.append('line')
+      .attr('x1', 0)
+      .attr('y1', 340)
+      .attr('x2', 800)
+      .attr('y2', 340)
+      .attr('stroke', 'yellow')
+      .attr('stroke-width', 5)
+      .style("stroke-dasharray", "20,20");
 
-<div id = "rectangle">
+    // --- Sun ---
+    const sun = svg.append("circle")
+      .attr('cx', 50)
+      .attr('cy', 50)
+      .attr('r', 20)
+      .attr('fill', 'yellow')
+      .attr('stroke', 'black');
 
-</div>
+    function animateSun() {
+      // reset instantly (no animation)
+      sun.interrupt().attr("cx", -50);
+
+      sun
+        .transition()
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 50)
+        .transition()
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 250)
+        .transition()
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 450)
+        .transition()
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 650)
+        .transition()
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 850)
+        .transition()
+        .duration(12000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 850)
+        .on("end", animateSun); // loop
+    }
+
+    animateSun();
+
+    // --- moon ---
+    const moon = svg.append("circle")
+      .attr('cx', -150)
+      .attr('cy', 50)
+      .attr('r', 20)
+      .attr('fill', 'grey')
+      .attr('stroke', 'black');
+
+    function animateMoon() {
+      // reset instantly (no animation)
+      moon.interrupt().attr("cx", -50);
+
+      moon
+        .transition() // start transition
+        .duration(12000) // 6 seconds
+        .ease(d3.easeCubicInOut) // smooth easing
+        .attr("cx", -50) // move to the right
+        .transition() // chain another transition
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 50)
+        .transition() // chain another transition
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 250)
+        .transition() // chain another transition
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 450)
+        .transition() // chain another transition
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 650)
+        .transition() // chain another transition
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 850)
+        .on("end", animateMoon); // loop animation
+    }
+
+    animateMoon();
+
+    // --- Car Body ---
+    svg.append('rect')
+      .attr('x', 250)
+      .attr('y', 250)
+      .attr('width', 200)
+      .attr('height', 50)
+      .attr('fill', 'red')
+      .attr('stroke', 'black');
+
+    svg.append('rect')
+      .attr('x', 300)
+      .attr('y', 220)
+      .attr('width', 100)
+      .attr('height', 40)
+      .attr('fill', 'darkred')
+      .attr('stroke', 'black');
+
+    // --- Wheels ---
+    svg.append('circle')
+      .attr('cx', 280)
+      .attr('cy', 310)
+      .attr('r', 20)
+      .attr('fill', 'black');
+
+    svg.append('circle')
+      .attr('cx', 420)
+      .attr('cy', 310)
+      .attr('r', 20)
+      .attr('fill', 'black');
+
+    // --- Car Stripe ---
+    svg.append('line')
+      .attr('x1', 250)
+      .attr('y1', 275)
+      .attr('x2', 450)
+      .attr('y2', 275)
+      .attr('stroke', 'orange')
+      .attr('stroke-width', 15);
+
+    // --- Car Headlight ---
+
+    const headlightPoints = [
+      [450, 270],
+      [450, 280],
+      [550, 300],
+      [550, 250]
+    ];
+
+
+    const headlight = svg.append('polygon')
+      .attr('points', headlightPoints.map(d => d.join(",")).join(" "))
+      .attr('fill', 'yellow')
+      .attr('opacity', 0);
+
+    function animateHeadlight() {
+      // reset instantly (no animation)
+      headlight.interrupt().attr('opacity', 0);
+
+      headlight
+        .transition()
+        .duration(22000)
+        .ease(d3.easeCubicInOut)
+        .attr('opacity', 1)
+        .on("end", animateHeadlight); // loop
+    }
+
+    animateHeadlight();
+
+  </script>
+
+
+
+
+</body>
+
+</html>
