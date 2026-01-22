@@ -87,14 +87,21 @@ These are the only way to move from B to A territory.
 
 
 Description:
-I've created an animation of a car driving along a mountainous road on a roadtrip. The car is made up of rectangles for the body and circles for the wheels, with a line down the middle as a stripe. The road in made with a grey rectangle with a dashed yellow line down the middle. The mountains are created using a polygon and so is the headlight. The animation starts wih a yellow "sun" circle moving across the sky and eventually getting replaced by a grey "moon circle. Additionally, the sky goes from lightblue to a darker blue and the headlights go from 0 opacity during the day to 1 opacity during the night.
+I've created an animation of a car driving along a mountainous road on a roadtrip. The car is made up of rectangles for the body and circles for the wheels, with a path down the middle as a stripe. The road in made with a grey rectangle with a dashed yellow line down the middle. The mountains are created using a polygon and so is the headlight. The animation starts wih a yellow "sun" circle moving across the sky and eventually getting replaced by a grey "moon" circle. Additionally, the sky goes from lightblue to a darker blue and the headlights go from 0 opacity during the day to 1 opacity during the night.
 
 Daytime:
 ![alt text](image.png)
 
 Nightime: ![alt text](image-1.png)
 
-Link: [text](https://anthonyrcoutts.github.io/a1-CS4804-AnthonyCoutts/)
+Github Pages Link: [D3 graphic](https://anthonyrcoutts.github.io/a1-CS4804-AnthonyCoutts/)
 
 Technical and Design achievements:
-For the design achievements I've designed a scene where its easy to see what it is and looks nice. Additionally the fading from day to night demonstrates the passing of time elegently. The mountains in the bacjground add to the scenery of the scene. For the technical achievements I've animated four different companents to demonstrate the passage of time. I've animated the sun and moon to show how day passes along to the night and back to the day. I've animated the sky to demonstrate how the day progrssively gets darker and animated the headlight to show how you would need the headlights as it gets darker.
+For the design achievements, I designed a scene that is visually clear, easy to understand, and aesthetically pleasing. Additionally the fading from day to night demonstrates the passing of time elegently. The mountains in the background add depth and enhance the overall scenery of the scene. For the technical achievements, I animated four different components to demonstrate the passage of time. I've animated the sun and moon to show how day passes along to the night and back to the day. I've animated the sky to demonstrate how the day progrssively gets darker. Finally, I animated the headlight to show how you would need the headlights as it gets darker.
+
+Links to resources used:
+https://d3-graph-gallery.com/graph/shape.html
+https://www.tutorialsteacher.com/d3js/animation-with-d3js
+
+I used ChatGPT to polish my initial design (see conversation link below)
+https://chatgpt.com/share/6972b264-7150-8008-8bca-b74692a93d84
