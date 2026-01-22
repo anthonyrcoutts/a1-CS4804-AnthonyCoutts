@@ -29,14 +29,14 @@
       .attr('fill', 'skyblue');
 
     function animateSky() {
-      // reset instantly (no animation)
-      sky.interrupt().attr('fill', 'skyblue');
+      // reset animation
+      sky.interrupt().attr('fill', 'skyblue'); // STart at light bue daytime sky
 
       sky
         .transition()
-        .duration(22000)
+        .duration(22000) // Progress to dark blue as sun and moon go through
         .ease(d3.easeCubicInOut)
-        .attr("fill", "#2D3C59")
+        .attr("fill", "#2D3C59") // Dark nighttime sky
         .on("end", animateSky); // loop
     }
 
@@ -87,14 +87,14 @@
       .attr('stroke', 'black');
 
     function animateSun() {
-      // reset instantly (no animation)
-      sun.interrupt().attr("cx", -50);
+      // reset animation
+      sun.interrupt().attr("cx", -50); // Start sun out of pciture
 
       sun
         .transition()
         .duration(2000)
         .ease(d3.easeCubicInOut)
-        .attr("cx", 50)
+        .attr("cx", 50) // Bring sun in picture
         .transition()
         .duration(2000)
         .ease(d3.easeCubicInOut)
@@ -110,9 +110,9 @@
         .transition()
         .duration(2000)
         .ease(d3.easeCubicInOut)
-        .attr("cx", 850)
+        .attr("cx", 850) // Hide sun
         .transition()
-        .duration(12000)
+        .duration(12000) // Hide sun while moon out
         .ease(d3.easeCubicInOut)
         .attr("cx", 850)
         .on("end", animateSun); // loop
@@ -129,34 +129,34 @@
       .attr('stroke', 'black');
 
     function animateMoon() {
-      // reset instantly (no animation)
-      moon.interrupt().attr("cx", -50);
+      // reset animation
+      moon.interrupt().attr("cx", -50); // Start moon out of picture
 
       moon
-        .transition() // start transition
-        .duration(12000) // 6 seconds
-        .ease(d3.easeCubicInOut) // smooth easing
-        .attr("cx", -50) // move to the right
-        .transition() // chain another transition
+        .transition() // start animation
+        .duration(12000) // wait until sun is gone
+        .ease(d3.easeCubicInOut) 
+        .attr("cx", -50) // Starting location (hiding while sun is out)
+        .transition() 
         .duration(2000)
         .ease(d3.easeCubicInOut)
-        .attr("cx", 50)
-        .transition() // chain another transition
+        .attr("cx", 50) // bring moon on screen
+        .transition() 
         .duration(2000)
         .ease(d3.easeCubicInOut)
         .attr("cx", 250)
-        .transition() // chain another transition
+        .transition()
         .duration(2000)
         .ease(d3.easeCubicInOut)
         .attr("cx", 450)
-        .transition() // chain another transition
+        .transition() 
         .duration(2000)
         .ease(d3.easeCubicInOut)
         .attr("cx", 650)
-        .transition() // chain another transition
+        .transition() 
         .duration(2000)
         .ease(d3.easeCubicInOut)
-        .attr("cx", 850)
+        .attr("cx", 850) // re hide moon
         .on("end", animateMoon); // loop animation
     }
 
@@ -216,14 +216,14 @@
       .attr('opacity', 0);
 
     function animateHeadlight() {
-      // reset instantly (no animation)
-      headlight.interrupt().attr('opacity', 0);
+      // reset animation
+      headlight.interrupt().attr('opacity', 0); // Start no opacity (hidden)
 
       headlight
         .transition()
-        .duration(22000)
+        .duration(22000) // Slowly turn headlight to greater opacity as day progresses to night
         .ease(d3.easeCubicInOut)
-        .attr('opacity', 1)
+        .attr('opacity', 1) // Full headlight opacity when night
         .on("end", animateHeadlight); // loop
     }
 
