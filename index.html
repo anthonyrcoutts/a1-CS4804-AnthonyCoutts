@@ -6,8 +6,8 @@
 </head>
 
 <body>
-
-  <div id="graph"></div>
+  <h1 align="center">Roadtrip</h1>
+  <div id="graph" align="center"></div>
 
   <script>
     console.log(d3); // test if d3 is loaded
@@ -20,13 +20,28 @@
       .attr("width", width)
       .attr("height", height);
 
-    // --- Background ---
-    svg.append('rect')
+    // --- Sky ---
+    const sky = svg.append('rect')
       .attr('x', 0)
       .attr('y', 0)
       .attr('width', width)
       .attr('height', height)
       .attr('fill', 'skyblue');
+
+    function animateSky() {
+      // reset instantly (no animation)
+      sky.interrupt().attr('fill', 'skyblue');
+
+      sky
+        .transition()
+        .duration(22000)
+        .ease(d3.easeCubicInOut)
+        .attr("fill", "#2D3C59")
+        .on("end", animateSky); // loop
+    }
+
+    animateSky();
+
 
     // --- Mountain ---
     const mountainPoints = [
@@ -42,8 +57,110 @@
 
     svg.append('polygon')
       .attr('points', mountainPoints.map(d => d.join(",")).join(" "))
+      .attr('fill', 'darkgrey')
+      .attr('stroke', 'black');
+
+    // --- Road ---
+    svg.append('rect')
+      .attr('x', 0)
+      .attr('y', 280)
+      .attr('width', 800)
+      .attr('height', 120)
       .attr('fill', 'grey')
       .attr('stroke', 'black');
+
+    svg.append('line')
+      .attr('x1', 0)
+      .attr('y1', 340)
+      .attr('x2', 800)
+      .attr('y2', 340)
+      .attr('stroke', 'yellow')
+      .attr('stroke-width', 5)
+      .style("stroke-dasharray", "20,20");
+
+    // --- Sun ---
+    const sun = svg.append("circle")
+      .attr('cx', 50)
+      .attr('cy', 50)
+      .attr('r', 20)
+      .attr('fill', 'yellow')
+      .attr('stroke', 'black');
+
+    function animateSun() {
+      // reset instantly (no animation)
+      sun.interrupt().attr("cx", -50);
+
+      sun
+        .transition()
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 50)
+        .transition()
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 250)
+        .transition()
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 450)
+        .transition()
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 650)
+        .transition()
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 850)
+        .transition()
+        .duration(12000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 850)
+        .on("end", animateSun); // loop
+    }
+
+    animateSun();
+
+    // --- moon ---
+    const moon = svg.append("circle")
+      .attr('cx', -150)
+      .attr('cy', 50)
+      .attr('r', 20)
+      .attr('fill', 'grey')
+      .attr('stroke', 'black');
+
+    function animateMoon() {
+      // reset instantly (no animation)
+      moon.interrupt().attr("cx", -50);
+
+      moon
+        .transition() // start transition
+        .duration(12000) // 6 seconds
+        .ease(d3.easeCubicInOut) // smooth easing
+        .attr("cx", -50) // move to the right
+        .transition() // chain another transition
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 50)
+        .transition() // chain another transition
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 250)
+        .transition() // chain another transition
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 450)
+        .transition() // chain another transition
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 650)
+        .transition() // chain another transition
+        .duration(2000)
+        .ease(d3.easeCubicInOut)
+        .attr("cx", 850)
+        .on("end", animateMoon); // loop animation
+    }
+
+    animateMoon();
 
     // --- Car Body ---
     svg.append('rect')
@@ -75,14 +192,44 @@
       .attr('r', 20)
       .attr('fill', 'black');
 
-    // --- Optional: car window/roof line ---
+    // --- Car Stripe ---
     svg.append('line')
-      .attr('x1', 300)
-      .attr('y1', 220)
-      .attr('x2', 400)
-      .attr('y2', 220)
-      .attr('stroke', 'lightblue')
-      .attr('stroke-width', 3);
+      .attr('x1', 250)
+      .attr('y1', 275)
+      .attr('x2', 450)
+      .attr('y2', 275)
+      .attr('stroke', 'orange')
+      .attr('stroke-width', 15);
+
+    // --- Car Headlight ---
+
+    const headlightPoints = [
+      [450, 270],
+      [450, 280],
+      [550, 300],
+      [550, 250]
+    ];
+
+
+    const headlight = svg.append('polygon')
+      .attr('points', headlightPoints.map(d => d.join(",")).join(" "))
+      .attr('fill', 'yellow')
+      .attr('opacity', 0);
+
+    function animateHeadlight() {
+      // reset instantly (no animation)
+      headlight.interrupt().attr('opacity', 0);
+
+      headlight
+        .transition()
+        .duration(22000)
+        .ease(d3.easeCubicInOut)
+        .attr('opacity', 1)
+        .on("end", animateHeadlight); // loop
+    }
+
+    animateHeadlight();
+
   </script>
 
 
